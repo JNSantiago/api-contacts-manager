@@ -22,5 +22,31 @@ RSpec.describe "Contacts API", type: :request do
 				expect(response).to have_http_status(200)
 			end
 		end
+
+		context "When contact does not exists in database" do
+			let(:contact_id) { 1000 }
+
+			it "When contact does not exists" do
+				expect(response).to have_http_status(404)
+			end
+		end
+	end
+
+	describe "GET /contacts" do
+
+		before do
+			headers = { "Accept" => "application/vnd.contactsmanager.v1" }
+			get "/contacts", params: {}, headers: headers
+		end
+
+		context "When exists contacts in database" do
+			it "When contacts exists" do
+				contact_response = JSON.parse(response.body)
+				expect(contact_response).not_to be_empty
+			end
+			it "When return status code" do
+				expect(response).to have_http_status(200)
+			end
+		end
 	end
 end

@@ -1,17 +1,17 @@
 class Api::V1::ContactsController < ApplicationController
 	respond_to :json
-	before_action :set_contact, only: [:show]
+
+	def index
+		@contacts = Contact.all
+		respond_with @contacts
+	end
 
 	def show 
 		begin
+			@contact = Contact.find(params[:id])
 			respond_with @contact
 		rescue
-			head 200
+			head 404
 		end
-	end
-	
-	private
-		def set_contact
-			@contact = Contact.find(params[:id])
-		end
+	end	
 end
