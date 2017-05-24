@@ -4,7 +4,7 @@ class ApiVersionConstraint
 		@default = options[:default]
 	end
 
-	def matchers?(req)
-		@default || req.headers['Accept'].include?("application/vnd.contactmanager.v#{@version}")
+	def matches?(req)
+		@default || req.headers['Accept'].include?("application/vnd.contactsmanager.v#{@version}")
 	end
 end

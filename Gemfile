@@ -12,17 +12,20 @@ gem 'sqlite3'
 gem 'puma', '~> 3.7'
 
 # gems inserted for me
+gem 'pry'
+gem 'responders'
 
 group :test do
-	gem 'database_cleaner'
-	gem 'shoulda-matchers', '~> 3.1'
-	gem 'factory_girl_rails'
-	gem 'faker'
+  gem 'rspec-rails', '~> 3.5'
+  gem 'shoulda-matchers', '~> 3.0.0'
+  gem 'database_cleaner'
+  gem 'factory_girl_rails'
+  gem 'faker'
 end
 
 group :development, :test do
-  gem 'byebug', platforms: [:mri, :mingw, :x64_mingw]
-	gem 'rspec-rails', '~> 3.5'
+  gem 'rspec-rails', '~> 3.5'
+  gem 'byebug', platform: :mri
 end
 
 group :development do
