@@ -113,4 +113,18 @@ RSpec.describe "Contacts API", type: :request do
 			end
 		end
 	end
+
+	describe 'DELETE /contacts/id' do
+		before do
+			headers = { 'Accept' => 'vnd.contactsmanager.v1' }
+			delete "/contacts/#{contact_id}", params: {}, headers: headers
+		end
+
+		it 'return 204 status code' do
+			expect(response).to have_http_status(204)
+		end
+		it 'return json from endpoint delete' do
+			expect(Contact.find_by(id: contact_id)).to be_nil
+		end
+	end
 end
