@@ -49,4 +49,36 @@ RSpec.describe "Contacts API", type: :request do
 			end
 		end
 	end
+
+	describe "POST /contacts" do
+		before do
+			headers = { "Accept" => "application/vnd.contactsmanager.v1" }
+			post '/contacts', params: { contact: contact_params }, headers: headers
+		end
+
+		context "When this parameters is valid" do
+			let(:contact_params) { FactoryGirl.attributes_for(:contact) }
+
+			it "return 201 status code" do
+				expect(response).to have_http_status(201)
+			end
+
+			it "return json for contact" do
+				contact_response = JSON.parse(response.body)
+				expect(contact_response["name"]).to eq(contact_params[:name])
+			end
+		end
+
+		context "When this parameters are invalids" do
+			let(:contact_params) { attributes_for(:contact, name: '') }	
+
+			it 'When return 422 status code' do
+				expect(response).to have_http_status(422)
+			end		
+			it 'When return json error for contact' do
+				contact_response = JSON.parse(response.body)
+				expect(contact_response).to have_key('errors')
+			end
+		end
+	end
 end
