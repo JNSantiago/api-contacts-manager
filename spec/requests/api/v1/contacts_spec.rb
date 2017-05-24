@@ -81,4 +81,36 @@ RSpec.describe "Contacts API", type: :request do
 			end
 		end
 	end
+
+	describe "PUT /contacts/id" do
+		before do
+			headers = { 'Accept' => 'application/vnd.contactsmanager.v1' }
+			put "/contacts/#{contact_id}", params: { contact: contact_params }, headers: headers
+		end
+
+		context 'When this parameters are valids' do
+			let(:contact_params) { { name: 'Jhon Cena' } }
+
+			it 'return 200 status code' do
+				expect(response).to have_http_status(201)
+			end
+			it 'return json data from contact' do
+				contact_response = JSON.parse(response.body)
+				expect(contact_params['name']).to eq(contact_response[:name])
+			end
+		end
+
+		context 'When this parameters are invalids' do
+			let(:contact_params) { { name: '' } }
+
+			it 'return 422 status code' do
+				expect(response).to have_http_status(422)
+			end
+
+			it 'return json data with errors' do
+				contact_response = JSON.parse(response.body)
+				expect(contact_response).to have_key('errors')
+			end
+		end
+	end
 end

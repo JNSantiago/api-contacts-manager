@@ -25,6 +25,16 @@ class Api::V1::ContactsController < ApplicationController
 		end
 	end
 
+	def update
+		contact = Contact.find(params[:id])
+
+		if contact.update(contact_params)
+			render json: contact, status: 201
+		else
+			render json: { errors: contact.errors }, status: 422
+		end
+	end
+
 	private
 		def contact_params
 			params.require(:contact).permit(:name, :email)
