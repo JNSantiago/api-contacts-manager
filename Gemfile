@@ -14,18 +14,19 @@ gem 'puma', '~> 3.7'
 # gems inserted for me
 gem 'pry'
 gem 'responders'
+gem 'active_model_serializers', '~> 0.10.0'
 
 group :test do
   gem 'rspec-rails', '~> 3.5'
   gem 'shoulda-matchers', '~> 3.0.0'
   gem 'database_cleaner'
   gem 'factory_girl_rails'
-  gem 'faker'
 end
 
 group :development, :test do
   gem 'rspec-rails', '~> 3.5'
   gem 'byebug', platform: :mri
+  gem 'faker'
 end
 
 group :development do
